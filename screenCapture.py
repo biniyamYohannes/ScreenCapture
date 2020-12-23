@@ -2,6 +2,7 @@ import numpy as np
 from PIL import ImageGrab
 import cv2
 import time
+import imutils
 
 class ShapeDetector:
     def __init__(self):
@@ -21,8 +22,6 @@ class ShapeDetector:
             if ar <= 0.95 or ar >= 1.05:
                 shape = 'person'
         return shape
-
-import imutils
 
 #Define the face cascade and timer
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
@@ -83,61 +82,3 @@ while(True):
             out.release()
             cv2.destroyAllWindows()
             break
-
-    #Loop duration
-    #print('Loop took {} seconds'.format(time.time() - last_time))
-    #last_time = time.time()
-    
-    #Write the frame to a file
-    #out.write(frame_rgb)
-
-    #Detect faces
-    #faces = face_cascade.detectMultiScale(gray, 1.1, 4)
-    #for(x, y, w, h) in faces:
-    #    cv2.rectangle(gray, (x,y), (x+w, y+h), (255, 0, 0), 2)
-
-    #Show the frames
-    #cv2.imshow('window', gray)
-
-    #Check for key press
-    #if cv2.waitKey(25) & 0xFF == ord('q'):
-    #    out.release()
-    #    cv2.destroyAllWindows()
-    #    break
-
-
-"""
-#Define the face cascade and timer
-face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-last_time = time.time()
-
-# Define the codec and create VideoWriter object
-out = cv2.VideoWriter('output.avi', cv2.VideoWriter_fourcc(*"XVID"), 10.0, (1920,1080))
-
-while(True):
-    #Get color and gray frame
-    frame = np.array(ImageGrab.grab())
-    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
-    #Loop duration
-    print('Loop took {} seconds'.format(time.time() - last_time))
-    last_time = time.time()
-    
-    #Write the frame to a file
-    out.write(frame_rgb)
-
-    #Detect faces
-    faces = face_cascade.detectMultiScale(gray, 1.1, 4)
-    for(x, y, w, h) in faces:
-        cv2.rectangle(gray, (x,y), (x+w, y+h), (255, 0, 0), 2)
-
-    #Show the frames
-    #cv2.imshow('window', gray)
-
-    #Check for key press
-    #if cv2.waitKey(25) & 0xFF == ord('q'):
-    #    out.release()
-    #    cv2.destroyAllWindows()
-    #    break
-"""
