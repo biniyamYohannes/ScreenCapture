@@ -20,7 +20,7 @@ while True:
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     gray = cv2.cvtColor(frame_rgb, cv2.COLOR_BGR2GRAY)                                      # white text on black background
     kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3,3))
-    dilated = cv2.dilate(gray, kernel, iterations=1)                                        # thickened white lines
+    dilated = cv2.dilate(gray, kernel, iterations=1)                                       # thickened white lines
     negative = cv2.bitwise_not(dilated)                                                     # black text on white background
     ret, image_thresh = cv2.threshold(negative, 8, 255, cv2.THRESH_BINARY)
 
@@ -53,9 +53,13 @@ while True:
                     # Store a complete name
                     else:
                         face = frame_rgb[start_y-200:start_y, start_x:start_x+400]
+                        name.replace("'", '')
+                        name.replace('.','')
+                        name.replace('-','')
+                        print(name)
 
                         # Store the first name
-                        if len(people) == 0 and len(name) > 5:
+                        if len(people) == 0 and len(name) > 5 and name[0].isupper() and name[1].isupper() == False:
                             out_name = name + ".avi"
                             people[name] = num_faces
                             outputs.append(cv2.VideoWriter(out_name, cv2.VideoWriter_fourcc(*"XVID"), 5.0, (400, 200)))
@@ -65,8 +69,8 @@ while True:
                             start_x, start_y = x,y
                             X,Y,W,H = x,y,w,h
 
-                        #Store other names (words) if they are at least 6 letters long
-                        elif len(name) > 5 and num_faces < 50:
+                        #Store other names (words) if they satisfy conditions
+                        elif len(name) > 5 and name[0].isupper() and name[1].isupper() == False and num_faces < 50:           # can also check for letters only with isalpha() if everyone has only letters in their name   
                             max_similarity = 0
                             max_similarity_index = 0
 
