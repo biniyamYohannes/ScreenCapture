@@ -2,7 +2,7 @@
 
 ## Description
 
-Captures screenshots and extract faces from its frames based on detected names.
+Captures screenshots and extracts faces from its frames based on detected names.
 
 ## Requirements
 ### Python Libraries
